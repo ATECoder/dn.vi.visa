@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>SimpleReadWrite</AssemblyName>
+    <TargetFrameworks>net10.0-windows</TargetFrameworks>
+    <OutputType>WinExe</OutputType>
+    <DelaySign>False</DelaySign>
+    <RootNamespace>NationalInstruments.Examples.SimpleReadWrite</RootNamespace>
+    <FileAlignment>4096</FileAlignment>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <RemoveIntegerChecks>False</RemoveIntegerChecks>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+    <UseWindowsForms>True</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+    <PackageReference Include="IviFoundation.Visa" Version="8.0.1" />
+    <PackageReference Include="NationalInstruments.Visa" Version="25.3.0.11" />
+    <PackageReference Include="NationalInstruments.Visa" Version="25.5.0.13" />
+    <PackageReference Include="IviFoundation.Visa" Version="8.0.2" />
+    -->
+    <PackageReference Include="NationalInstruments.Visa" Version="25.5.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- This service generates text from T4 text templates. -->
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    <None Update="version.build.props">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>version.build.tt</DependentUpon>
+    </None>
+    <None Update="version.build.tt">
+      <LastGenOutput>version.build.props</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <Import Project="version.build.props" />
+
+</Project>

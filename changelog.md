@@ -6,6 +6,7 @@ Notable changes to the `cc.isr.vi` solution are documented in this file using th
 
 ## [1.0.9614] - 2026-04-28
 - Add NI Visa examples using NI Visa and IVI Visa.
+- Handle cross-thread exception in the service request handler method.
 
 ## [1.0.9613] - 2026-04-27
 - Created.

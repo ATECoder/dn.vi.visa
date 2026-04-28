@@ -443,24 +443,31 @@ public class MainForm : System.Windows.Forms.Form
 
     private void OnServiceRequest( object sender, VisaEventArgs e )
     {
-        try
+        if ( this.InvokeRequired )
         {
-            Ivi.Visa.IMessageBasedSession messageBasedSession = ( Ivi.Visa.IMessageBasedSession ) sender;
-            StatusByteFlags sb = messageBasedSession.ReadStatusByte();
-
-            if ( (sb & StatusByteFlags.MessageAvailable) != 0 )
-            {
-                string textRead = messageBasedSession.RawIO.ReadString();
-                this._readTextBox.Text += $"{InsertCommonEscapeSequences( textRead )}\n";
-            }
-            else
-            {
-                _ = MessageBox.Show( "MAV in status register is not set, which means that message is not available. Make sure the command to enable SRQ is correct, and the instrument is 488.2 compatible." );
-            }
+            _ = this.BeginInvoke( new Action<object, VisaEventArgs>( this.OnServiceRequest ), [sender, e] );
         }
-        catch ( Exception exp )
+        else
         {
-            _ = MessageBox.Show( exp.Message );
+            try
+            {
+                Ivi.Visa.IMessageBasedSession messageBasedSession = ( Ivi.Visa.IMessageBasedSession ) sender;
+                StatusByteFlags sb = messageBasedSession.ReadStatusByte();
+
+                if ( (sb & StatusByteFlags.MessageAvailable) != 0 )
+                {
+                    string textRead = messageBasedSession.RawIO.ReadString();
+                    this._readTextBox.Text += $"{InsertCommonEscapeSequences( textRead )}\n";
+                }
+                else
+                {
+                    _ = MessageBox.Show( "MAV in status register is not set, which means that message is not available. Make sure the command to enable SRQ is correct, and the instrument is 488.2 compatible." );
+                }
+            }
+            catch ( Exception exp )
+            {
+                _ = MessageBox.Show( exp.Message );
+            }
         }
     }
 }

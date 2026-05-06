@@ -9,7 +9,7 @@ and how to read it.
 * IVI.Visa package 8.0.2
 * NI 26.2 package 25.3.0.11
 * NI 26.2 package 25.5.0.13
-* Keysight 2025-11 21.2.207
+* Keysight 2025-11 21.2.207 or 21.3.293
   * IVI.Visa package 8.0.2: Failed
   * KeysightTechnologies.Visa 18.6.6: Failed
 

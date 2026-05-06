@@ -372,6 +372,13 @@ public class MainForm : System.Windows.Forms.Form
             this._mbSession = ( Ivi.Visa.IMessageBasedSession ) Ivi.Visa.GlobalResourceManager.Open( this._resourceNameComboBox.Text );
             // Use SynchronizeCallbacks to specify that the object marshals callbacks across threads appropriately.
             this._mbSession.SynchronizeCallbacks = true;
+
+            // Set TCP Keep Alive
+            if ( this._mbSession.ResourceName.StartsWith( "TCPIP", StringComparison.OrdinalIgnoreCase ) )
+            {
+                (( INativeVisaSession ) this._mbSession).SetAttributeBoolean( NativeVisaAttribute.TcpKeepAlive, true );
+            }
+
             this.UpdateResourceNameControls( false );
             this.UpdateSRQControls( true );
         }
